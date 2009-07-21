@@ -1,7 +1,9 @@
 '' Utilities '' 
 
+#IfNDef Rand
 Declare Function Rand OverLoad (first As Double, last As Double) As Double
 Declare Function Rand OverLoad (first As Integer, last As Integer) As Integer
+#Endif
 Declare Function middle(a As Double, b As Double, c As Double) As Double
 Declare Function min(a As Double, b As Double) As Double
 Declare Function max(a As Double, b As Double) As Double
@@ -13,15 +15,15 @@ Declare Function blendRGB(col1 As UInteger, col2 As UInteger, factor As Single) 
 
 
 '' Math Functions ''
-
-Function Rand OverLoad (first As Double, last As Double) As Double
+#IfNDef Rand
+Function Rand(first As Double, last As Double) As Double
     Return Rnd * (last - first) + first
 End Function
 
-Function Rand OverLoad (first As Integer, last As Integer) As Integer
+Function Rand(first As Integer, last As Integer) As Integer
     Return Int(Rnd * (last - first + 1)) + first
 End Function
-
+#Endif
 Function Min(a As Double, b As Double) As Double
     If a > b Then Return b Else Return a
 End Function
@@ -60,18 +62,23 @@ Function Middle(a As Double, b As Double, c As Double) As Double
     Return c 
 End Function
 
-Declare Function Distance Overload (x1 As Double, y1 As Double, x2 As Double, y2 As Double) As Double
-Declare Function Distance Overload (x1 As Integer, y1 As Integer, x2 As Integer, y2 As Integer) As Integer
+'Declare Function Distance Overload (x1 As Double, y1 As Double, x2 As Double, y2 As Double) As Double
+'Declare Function Distance Overload (x1 As Integer, y1 As Integer, x2 As Integer, y2 As Integer) As Integer
 
-Function Distance Overload (x1 As Double, y1 As Double, x2 As Double, y2 As Double) As Double
+Function Distance (x1 As Double, y1 As Double, x2 As Double, y2 As Double) As Double
 	Return Sqr( (x2-x1)*(x2-x1) + (y2-y1)*(y2-y1) )
 End Function 
 
-Function Distance Overload (x1 As Integer, y1 As Integer, x2 As Integer, y2 As Integer) As Integer
-	Return Sqr( CSng((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1)) )
-End Function 
+'Function Distance Overload (x1 As Integer, y1 As Integer, x2 As Integer, y2 As Integer) As Integer
+'	Return Sqr( CSng((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1)) )
+'End Function 
 
+'Function GetAngle(x1 As Double, y1 As Double, x2 As Double, y2 As Double) As Double
+'    Dim result As Double = (Atan2( y1-y2, x2-x1 )
+'    If result < 0 Then Return result+360 Else Return result
+'End Function
 
+#Define GetAngle(x1,y1,x2,y2) Atan2((y1)-(y2), (x2)-(x1))
 
 Sub TextCenterScreen(_txt As String, _y As Integer, r As Short = -1, g As Short = -1, b As Short = -1)
 	Dim As Integer _w
