@@ -14,3 +14,4 @@ Contents
  * quaternion.bi	- quaternion library
  * util.bas			- misc utility functions and subs
  * words.bi			- functions for string manipulation
+ * trie.bi			- trie data structure
