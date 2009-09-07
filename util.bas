@@ -1,21 +1,15 @@
 '' Utilities '' 
 
-#IfNDef Rand
+'#IfNDef Rand
 Declare Function Rand OverLoad (first As Double, last As Double) As Double
 Declare Function Rand OverLoad (first As Integer, last As Integer) As Integer
-#Endif
+'#Endif
 Declare Function middle(a As Double, b As Double, c As Double) As Double
-Declare Function min(a As Double, b As Double) As Double
-Declare Function max(a As Double, b As Double) As Double
-Declare Function clip(value As Double, lo As Double, hi As Double) As Double
-Declare Function rgb_limit(value As Integer) As Integer
 Declare Function blendRGB(col1 As UInteger, col2 As UInteger, factor As Single) As UInteger
-
-'Declare Function in2DArray(array() As Any, a As Integer, b As Integer) As Byte
 
 
 '' Math Functions ''
-#IfNDef Rand
+'#IfNDef Rand
 Function Rand(first As Double, last As Double) As Double
     Return Rnd * (last - first) + first
 End Function
@@ -23,27 +17,7 @@ End Function
 Function Rand(first As Integer, last As Integer) As Integer
     Return Int(Rnd * (last - first + 1)) + first
 End Function
-#Endif
-Function Min(a As Double, b As Double) As Double
-    If a > b Then Return b Else Return a
-End Function
-
-Function Max(a As Double, b As Double) As Double
-    If a > b Then Return a Else Return b
-End Function
-
-
-Function Clip(value As Double, lo As Double, hi As Double) As Double
-    If value < lo Then Return lo
-    If value > hi Then Return hi
-    Return value
-End Function
-
-Function rgb_limit(value As Integer) As Integer
-    If value < 0 Then Return 0
-    If value > 255 Then Return 255
-    Return value
-End Function
+'#Endif
 
 Function blendRGB(col1 As UInteger, col2 As UInteger, factor As Single) As UInteger'
 	''requires def.bi
@@ -78,7 +52,7 @@ End Function
 '    If result < 0 Then Return result+360 Else Return result
 'End Function
 
-#Define GetAngle(x1,y1,x2,y2) Atan2((y1)-(y2), (x2)-(x1))
+'#Define GetAngle(x1,y1,x2,y2) Atan2((y1)-(y2), (x2)-(x1))
 
 Sub TextCenterScreen(_txt As String, _y As Integer, r As Short = -1, g As Short = -1, b As Short = -1)
 	Dim As Integer _w

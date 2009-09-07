@@ -8,22 +8,11 @@
 #Define rgb_r(x) ((x) Shr 16 And 255)
 #Define rgb_g(x) ((x) Shr 8 And 255)
 #Define rgb_b(x) ((x) And 255)
-'#Define rgb_limit(c) (Iif(c>0,Iif(c<255,c,255),0))
+#Define rgb_clamp(c) (IIf(c>0,IIf(c<255,c,255),0))
 
 '#Define blend(a,b,f) ((Abs((b)-(a))*(f) + (a)))
 #Define blend(a,b,f) ((a)*(f) + (b)*(1.0-(f)))
 #Define blendMul(a,b) (((a) * (b)) Shr 8)
-
-' declaration
-#Define dimI Dim As Integer
-#Define dimSh Dim As Short
-#Define dimL Dim As Long
-#Define dimS Dim As Single
-#Define dimD Dim As Double
-#Define dimB Dim As Byte
-#Define dimUB Dim As UByte
-#Define dimStr Dim As String
-
 
 ' Math
 #Define DegToRad 0.017453292519943  ' constant for converting degrees to radians
@@ -33,9 +22,14 @@
 #Define mean(a,b) (((a)+(b))*.5)
 #Define in2dArray(array,a,b) ((a) >= LBound(array,1) And (a) <= UBound(array,1) And (b) >= LBound(array,2) And (b) <= UBound(array,2))
 '#Define round(a) ( Fix(0.5*Sgn(a)+a) )
-'#Define max(a,b) ( IIf((a)>(b),(a),(b)) )
-'#Define min(a,b) ( IIf((a)<(b),(a),(b)) )
-'#Define clip(x,lo,hi) ( IIf((x)>(lo),Iif((x)<(hi),(x),(hi)),(lo)) )
+#IfNDef max
+	#Define max(a,b) ( IIf((a)>(b),(a),(b)) )
+#EndIf
+#IfNDef min
+	#Define min(a,b) ( IIf((a)<(b),(a),(b)) )
+#EndIf
+#Define clip(x,lo,hi) ( IIf((x)>(lo),IIf((x)<(hi),(x),(hi)),(lo)) )
+#Define GetAngle(x1,y1,x2,y2) Atan2((y1)-(y2), (x2)-(x1))
 
 
 ' Misc
@@ -55,6 +49,17 @@ For j = loJ To hiJ
 #Macro printsleep(foo)
     Print foo: Sleep
 #EndMacro
+
+
+' Declaration
+#Define dimI Dim As Integer
+#Define dimSh Dim As Short
+#Define dimL Dim As Long
+#Define dimS Dim As Single
+#Define dimD Dim As Double
+#Define dimB Dim As Byte
+#Define dimUB Dim As UByte
+#Define dimStr Dim As String
 
 
 ' Scan codes
