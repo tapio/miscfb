@@ -90,7 +90,9 @@ End Type
 	End Operator
 
 
-
+Function Vec2FromAngle(angle As vectorPrec, length As vectorPrec = 1.0) As vec2
+	Return Type<vec2>(Cos(angle * 0.017453292519943), Sin(angle * 0.017453292519943))
+End Function
 
 
 ''' 3d Vector '''
