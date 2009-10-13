@@ -8,7 +8,7 @@
 #Define rgb_r(x) ((x) Shr 16 And 255)
 #Define rgb_g(x) ((x) Shr 8 And 255)
 #Define rgb_b(x) ((x) And 255)
-#Define rgb_clamp(c) (IIf(c>0,IIf(c<255,c,255),0))
+#Define rgb_clamp(_c) (IIf((_c)>0, IIf((_c)<255, (_c),255), 0))
 
 '#Define blend(a,b,f) ((Abs((b)-(a))*(f) + (a)))
 #Define blend(a,b,f) ((a)*(f) + (b)*(1.0-(f)))
@@ -18,7 +18,7 @@
 #Define DegToRad 0.017453292519943  ' constant for converting degrees to radians
 #Define RadToDeg 57.29577951308233  ' constant for converting radians to degrees
 #Define PI 3.141592653589793
-#Define wrap(a,max) (((a) + (max)) Mod (max))
+#Define wrap(a,limit) ( (a) - Int((a) / (limit)) * (limit) )  ' modulus that works with floats
 #Define mean(a,b) (((a)+(b))*.5)
 #Define in2dArray(array,a,b) ((a) >= LBound(array,1) And (a) <= UBound(array,1) And (b) >= LBound(array,2) And (b) <= UBound(array,2))
 '#Define round(a) ( Fix(0.5*Sgn(a)+a) )
