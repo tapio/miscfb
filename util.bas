@@ -29,8 +29,8 @@ Function blendRGB(col1 As UInteger, col2 As UInteger, factor As Single) As UInte
 End Function
 
 Function Middle(a As Double, b As Double, c As Double) As Double
-    Dim As Double minval = min(a ,min(b,c))
-    Dim As Double maxval = max(a ,max(b,c))
+    Dim As Double minval = min(a,b): minval = min(c, minval)
+    Dim As Double maxval = max(a,b): maxval = max(c, maxval)
     If minval < a And maxval > a Then Return a
     If minval < b And maxval > b Then Return b
     Return c 
