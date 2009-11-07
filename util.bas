@@ -86,7 +86,7 @@ Type DelayTimer
     Declare Constructor(delay As Double, running As Byte = -1)
     Declare Function hasExpired() As Byte
     Declare Sub start()
-    Declare Sub pause()
+    Declare Sub stop()
 End Type
     Constructor DelayTimer(delay As Double, running As Byte = -1)
         this.delay = delay
@@ -94,7 +94,7 @@ End Type
         this.record = Timer
     End Constructor 
     Function DelayTimer.hasExpired() As Byte
-        If this.running = 0 Or  Timer > this.record + this.delay Then
+        If this.running = 0 OrElse Timer > this.record + this.delay Then
             'this.record = Timer
             this.running = 0
             Return Not 0
@@ -105,14 +105,18 @@ End Type
         this.running = Not 0
         this.record = Timer
     End Sub
-    Sub DelayTimer.Pause()
+    Sub DelayTimer.Stop()
         this.running = 0
     End Sub
 
 
+#IfNDef _FRAMETIMER_AVERAGE_SPAN_
+	#Define _FRAMETIMER_AVERAGE_SPAN_ 1.0
+#EndIf
 Type FrameTimer
     prevTime As Double
     frameTime As Double
+    frameCounter As UInteger
     Declare Constructor()
     Declare Sub Update()
     Declare Function getFPS() As Integer
@@ -122,8 +126,12 @@ End Type
         this.prevTime = Timer
     End Constructor
     Sub FrameTimer.Update()
-        this.frameTime = (Timer - this.prevTime)
-        this.prevTime = Timer
+		this.frameCounter+=1
+		If Timer > this.prevTime + _FRAMETIMER_AVERAGE_SPAN_ Then
+			this.frameTime = (Timer - this.prevTime) / CDbl(this.frameCounter)
+			this.frameCounter = 0
+			this.prevTime = Timer
+		EndIf
     End Sub
     Function FrameTimer.getFPS As Integer
         Return Int(1.0 / this.frameTime)
