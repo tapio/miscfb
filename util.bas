@@ -70,6 +70,13 @@ Sub PrintCenterScreen(_txt As String, _y As Integer, r As Short = -1, g As Short
 	Print _txt
 End Sub
 
+Sub ConsolePrint(_txt As String)
+	Var f = FREEFILE
+	Open Cons For Output As #f
+	Print #f, _txt
+	Close #f
+End Sub
+
 '' Useful timers ''
 
 Type DelayTimer
